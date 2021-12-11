@@ -67,11 +67,11 @@ def init_smart_agitator(cbpi):
     else :
         if enabled == 'YES' and not timed_actor :
 
-            if cbpi.cache.get("actors").get(int(kettle.heater)).state == True :
+            if cbpi.cache.get("actors").get(int(kettle.heater)).state == True and cbpi.cache.get("actors").get(int(kettle.heater)).power > 0 :
                 curr_agi.instance.on(100)
                 cbpi.cache.get("actors").get(int(kettle.agitator)).state = True
                 cbpi.emit("SWITCH_ACTOR", curr_agi)
-            elif cbpi.cache.get("actors").get(int(kettle.heater)).state == False and cbpi.cache.get("actors").get(int(kettle.agitator)).state == True :
+            elif cbpi.cache.get("actors").get(int(kettle.heater)).state == False or cbpi.cache.get("actors").get(int(kettle.heater)).power < 1 :
                 curr_agi.instance.off()
                 cbpi.emit("SWITCH_ACTOR", curr_agi)
                 cbpi.cache.get("actors").get(int(kettle.agitator)).state = False
@@ -89,7 +89,10 @@ def init_smart_agitator(cbpi):
 
 @cbpi.step
 class SmartAgitatorStep(StepBase):
-
+    """
+    This adds a new MashStep which you can use to toggle the SmartAgitator plugin at the beginning and end of your mash profile.
+    :return: None
+    """
     #Hint = Property.Text("Hint", configurable=False, defaul_value="Switches the SmartAgitator plugin ON or OFF." )
     toggle_type = Property.Select("Toggle Type", options=["On", "Off"], description="Switches the SmartAgitator plugin ON or OFF.")
 
@@ -124,7 +127,7 @@ class SmartAgitatorStep(StepBase):
                         
 
     def finish(self):
-	    pass
+        pass
 
     def execute(self):
-    	self.next()
+        self.next()
