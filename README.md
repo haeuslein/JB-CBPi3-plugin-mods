@@ -15,7 +15,7 @@ smart_agitator_kettle_id: | `int` | If you only have one kettle its ID is 1
 smart_agitator_override: | `string` | The name of another agitator that should NOT be stopped when the heater is off. *
 
 
-I use the same physical agitator in 2 configurations in my CBPi, once as a time-pattern-controlled actor `Timed_agitator` and once as `Agitator`. Since this plugin would shut off my agitator even if I want the time pattern to be active independently of the heater stae and power level, I have created this option to override the shut off of an active `Timed_agitator`.
+I use the same physical agitator in 2 configurations in my CBPi. Once as a time-pattern-controlled actor `Timed_agitator` and once as `Agitator`. Since this plugin would shut off my agitator even if I want the time pattern to be active independently of the heater state and power level, I have created this option to override the shut off of an active `Timed_agitator`.
 
 
 # !!Be aware!!
