@@ -323,7 +323,7 @@ def mqtt_pubb(api):
     else :
         ferm_state = 'OFF'
         #log(ferm_state + ' -- this is OFF if fermenter was OFF')
-    pl = {'state': ferm_state, 'targetTemp:': fermenter.target_temp, 'brewery': api.get_config_parameter("brewery_name", None), 'beer': fermenter.brewname}
+    pl = {'state': ferm_state, 'targetTemp': fermenter.target_temp, 'brewery': api.get_config_parameter("brewery_name", None), 'beer': fermenter.brewname}
     try :
         api.cache["mqtt"].client.publish(topic, payload=json.dumps(pl, ensure_ascii=False), qos=0, retain=False)
         #log('fermenter state should be published -- ' + fermenter.brewname)
